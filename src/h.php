@@ -36,6 +36,13 @@ class H {
                         ), array('selfClose' => true));
     }
 
+    protected function link($rel, $href) {
+        return $this->prepareTag('link', "", array(
+                    'rel' => $rel,
+                    'href' => $href
+                        ), array('selfClose' => true));
+    }
+
     protected function checkbox($name, $value, $opts = array()) {
         return $this->input(self::_($name), 'checkbox', $name, $value, $opts);
     }
@@ -90,7 +97,8 @@ class H {
 
     public static function getInstance() {
         if (!self::$instance) {
-            self::$instance = new self;
+            $class = get_called_class();
+            self::$instance = new $class;
         }
         return self::$instance;
     }
@@ -129,25 +137,31 @@ class H {
     }
 
     protected function prepareTag($tag, $text = "", $attrs = array(), $opts = array()) {
-        $output = "<" . $tag;
-        foreach ($attrs as $attr => $val) {
-            if (is_array($val)) {
-                $output .= " $attr='";
-                foreach ($val as $key => $value) {
-                    $output .= "$key:$value;";
-                }
-                $output .= "'";
-            } else {
-                $output .= " $attr='$val'";
-            }
+        if (empty($opts['count'])) {
+            $opts['count'] = 1;
         }
-        if (!empty($opts['selfClose'])) {
-            if (empty($attrs['value']) && !empty($text)) {
-                $output .= "value='$text' ";
+        $output = "";
+        for ($i = 0; $i < $opts['count']; $i++) {
+            $output .= "<" . $tag;
+            foreach ($attrs as $attr => $val) {
+                if (is_array($val)) {
+                    $output .= " $attr='";
+                    foreach ($val as $key => $value) {
+                        $output .= "$key:$value;";
+                    }
+                    $output .= "'";
+                } else {
+                    $output .= " $attr='$val'";
+                }
             }
-            $output .= '/>';
-        } else {
-            $output .= ">$text</$tag>";
+            if (!empty($opts['selfClose'])) {
+                if (empty($attrs['value']) && !empty($text)) {
+                    $output .= "value='$text' ";
+                }
+                $output .= '/>';
+            } else {
+                $output .= ">$text</$tag>";
+            }
         }
         if (!empty($opts['print']))
             print $output;
