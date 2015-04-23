@@ -12,7 +12,6 @@ namespace HtmlHelper;
 
 class H {
 
-    protected $output = '';
     protected static $instance;
 
     const DOCTYPE_HTML5 = "html5";
@@ -40,9 +39,6 @@ class H {
     }
 
     protected function doctype($doctype) {
-        if ('' !== self::getInstance()->output) {
-            throw new \Exception("DOCTYPE has to be set before everything else.", 500);
-        }
         $return = "";
         switch ($doctype) {
             case self::DOCTYPE_HTML5:
@@ -109,7 +105,7 @@ class H {
     }
 
     public function printAll() {
-        return ob_get_contents() . $this->output;
+        return ob_get_contents();
     }
 
 }
