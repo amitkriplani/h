@@ -12,9 +12,9 @@ h\H::html(
         ) .
         h\H::body(
                 h\H::div(
-                        h\H::span(h\H::_("SpanText"))
+                        h\H::span(h\H::_("Text inside span"))
                 ) .
-                h\H::div(h\H::_("DivText"))
+                h\H::div(h\H::_("Text outside span inside another div"))
         )
         , array(), array("print" => true)
 );
