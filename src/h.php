@@ -2,7 +2,7 @@
 
 /**
  * @author Amit Kriplani <amitkriplani@ymail.com>
- * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+ * @license ../LICENSE The MIT License (MIT)
  * @copyright (c) 2015, Amit Kriplani
  * @link https://github.com/amitkriplani/h GitHub URL
  * @package h
@@ -85,7 +85,7 @@ class H {
     }
 
     public function __construct() {
-        ob_start(array($this, 'printAll'));
+        ;
     }
 
     public static function getInstance() {
@@ -159,12 +159,6 @@ class H {
         return htmlentities($text);
     }
 
-    public function printAll() {
-        return ob_get_contents();
-    }
-
 }
 
 //EOF
-
-        

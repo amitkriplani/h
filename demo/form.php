@@ -19,7 +19,7 @@ h\H::html(
                                 h\H::checkbox('checkbox', "1") .
                                 h\H::checkbox('checkbox', "0") .
                                 h\H::fieldset(
-                                        h\H::legend(h\H::_('legend')) .
+                                        h\H::legend(h\H::_('radio buttons')) .
                                         h\H::radio('radio', "yes") .
                                         h\H::radio('radio', "no")
                                 ) .
